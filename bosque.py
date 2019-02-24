@@ -12,16 +12,16 @@ import matplotlib.pyplot as plt
 FERTILIDAD  = 0.80    #Cuantos arboles nacen
 VOLATILIDAD = 0.02    #Que tan probable es que se quemen
 
-fertilidades = []     #Para la dinamica evolutiva
-
-def generarProbs(tam):
+def generarProbs(tam, fertilidades):
     for i in range(tam):
         fertilidades.append(0.5)
 
 def pasaProbabilidad(p):
     num = random()
-    if num <= p: return True
-    else: return False 
+    if num <= p: 
+        return True
+    else: 
+        return False 
 
 def generarBosque(tam):
     bosque = []
@@ -50,11 +50,9 @@ def verano(bosque):
             bosque[i] = -1
         elif bosque[i] == -1: #Si llega a un fuego, este se propaga hacia atras
             j = i - 1
-            while j >= 0:
-                if bosque[j] == 1:
-                    bosque[j] = -1
-                    j -= 1
-                else: break #Si encuentra un claro u otro fuego, para
+            while j >= 0 and bosque[j] == 1: #Si encuentra un claro u otro fuego, para
+                bosque[j] = -1
+                j -= 1
 
 
 def invierno(bosque, dinamica=False):
@@ -86,7 +84,9 @@ def estaciones(bosque, tiempo):
 
 iteraciones = 1000
 tam = 100
-generarProbs(tam)
+
+fertilidades = []
+generarProbs(tam, fertilidades)
 
 promedios = []
 probs = [0.01 * n for n in range(1, 101)]
